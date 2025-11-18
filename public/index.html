@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="./js/view-task.js"></script>
+</head>
+
+<body onload="viewTasks()">
+    <header class="app-header">
+        <h1 class="app-title">Task Manager</h1>
+        <button id="createTaskBtn" class="btn btn-primary">+ Create New Task</button>
+    </header>
+
+    <main>
+        <section id="tasksList" class="tasks-list" aria-label="Task list"></section>
+    </main>
+
+    <div id="taskList">
+    </div>
+
+</body>
+
+</html>

@@ -1,9 +1,10 @@
 class Task {
-    constructor(name, description, dueDate, completed, imageUrl) {
+    constructor(name, description, dueDate, completed, priority, imageUrl) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
         this.completed = completed;
+        this.priority = priority;
         this.imageUrl = imageUrl || null;
         const timestamp = new Date().getTime();
         const random = Math.floor(Math.random() * 1000);
