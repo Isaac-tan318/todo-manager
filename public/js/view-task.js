@@ -21,7 +21,7 @@ function viewTasks() {
       <div class="task-header">
         <p class="task-title">${task.title}</p>
         <div class="task-actions">
-          <button class="btn-edit" data-id="${task.id}">✏️</button>
+          <button class="btn-edit" data-id="${task.id}" onclick="openEditDialog('${task.id}')">✏️</button>
           <button class="btn-delete" data-id="${task.id}">🗑️</button>
         </div>
       </div>
@@ -59,4 +59,3 @@ function viewTasks() {
 
     request.send();
 }
-
