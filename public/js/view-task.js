@@ -47,6 +47,14 @@ function viewTasks() {
         var tableContent = document.getElementById('taskList');
         tableContent.innerHTML = html;
         
+        // Add event listeners to delete buttons
+        var deleteButtons = document.getElementsByClassName('btn-delete');
+        for (var i = 0; i < deleteButtons.length; i++) {
+            deleteButtons[i].addEventListener('click', function() {
+                var taskId = this.getAttribute('data-id');
+                deleteTask(taskId);
+            });
+        }
     };
 
     request.onerror = function() {
@@ -60,3 +68,33 @@ function viewTasks() {
     request.send();
 }
 
+function deleteTask(taskId) {
+    // Show confirmation dialog
+    if (confirm('Are you sure you want to delete this task?')) {
+        var request = new XMLHttpRequest();
+        request.open('DELETE', '/tasks/' + taskId, true);
+        request.setRequestHeader('Content-Type', 'application/json');
+
+        request.onload = function() {
+            if (request.status === 200) {
+                // Task deleted successfully, refresh the task list
+                viewTasks();
+                alert('Task deleted successfully!');
+            } else {
+                // Handle error
+                try {
+                    var errorResponse = JSON.parse(request.responseText);
+                    alert('Error: ' + (errorResponse.error || 'Failed to delete task'));
+                } catch (e) {
+                    alert('Error: Failed to delete task');
+                }
+            }
+        };
+
+        request.onerror = function() {
+            alert('Error: Failed to connect to server');
+        };
+
+        request.send();
+    }
+}

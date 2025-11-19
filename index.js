@@ -15,7 +15,10 @@ app.get('/', (req, res) => {
 })
 
 const { viewTasks } = require('./utils/ViewTasksUtil')
+const { deleteTask } = require('./utils/DeleteTaskUtil')
+
 app.get('/view-tasks', viewTasks)
+app.delete('/tasks/:id', deleteTask)
     
 server = app.listen(PORT, function () {
     const address = server.address();

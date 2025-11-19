@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
-const TASKS_FILE = path.join('utils', 'tasks.json');
+const TASKS_FILE = path.join(__dirname, 'tasks.json');
 async function viewTasks(req, res) {
     try {
         const data = await fs.readFile(TASKS_FILE, 'utf8');
