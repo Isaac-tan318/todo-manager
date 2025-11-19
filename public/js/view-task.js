@@ -44,8 +44,11 @@ function viewTasks() {
   `;
         }
 
-        var tableContent = document.getElementById('taskList');
-        tableContent.innerHTML = html;
+        var tasksList = document.getElementById('tasksList');
+        if (tasksList) {
+            tasksList.innerHTML = html;
+        }
+        
         
     };
 

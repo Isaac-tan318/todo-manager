@@ -5,7 +5,7 @@
     "description": "Create a comprehensive wireframe showing all CRUD operations",
     "status": "Completed",
     "priority": "High",
-    "dueDate": "2025-11-15"
+    "dueDate": "Nov 15, 2025"
   },
   {
     "id": "task-2",
@@ -13,7 +13,7 @@
     "description": "Set up login and registration functionality",
     "status": "In Progress",
     "priority": "High",
-    "dueDate": "2025-11-20"
+    "dueDate": "Nov 20, 2025"
   },
   {
     "id": "task-3",
@@ -21,6 +21,14 @@
     "description": "Document all API endpoints and usage examples",
     "status": "To Do",
     "priority": "Medium",
-    "dueDate": "2025-11-25"
+    "dueDate": "Nov 25, 2025"
+  },
+  {
+    "title": "Test task",
+    "description": "Testing task",
+    "status": "To Do",
+    "priority": "Medium",
+    "dueDate": "Nov 20, 2025",
+    "id": "1763536644525428"
   }
 ]
