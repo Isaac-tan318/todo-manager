@@ -43,42 +43,59 @@ function closeModal() {
 // Handle form submission
 createTaskForm.addEventListener('submit', function(event) {
     event.preventDefault();
+    createTask();
+});
+
+function createTask() {
+    var response = "";
+    // Create an object to hold form data
+    var jsonData = new Object();
+    jsonData.title = document.getElementById("taskTitle").value;
+    jsonData.description = document.getElementById("taskDescription").value;
+    jsonData.status = document.getElementById("taskStatus").value;
+    jsonData.priority = document.getElementById("taskPriority").value;
+    jsonData.dueDate = document.getElementById("taskDueDate").value;
     
-    // Get form values
-    const formData = {
-        title: document.getElementById('taskTitle').value,
-        description: document.getElementById('taskDescription').value,
-        status: document.getElementById('taskStatus').value,
-        priority: document.getElementById('taskPriority').value,
-        dueDate: formatDate(document.getElementById('taskDueDate').value)
-    };
+    // Validate required fields
+    if (jsonData.title == "" || jsonData.dueDate == "") {
+        alert('Title and Due Date are required!');
+        return; // Stop execution if validation fails
+    }
     
-    // Send POST request to create task
-    const request = new XMLHttpRequest();
-    request.open('POST', '/create-task', true);
+    // Format the date to "MMM DD, YYYY" format
+    jsonData.dueDate = formatDate(jsonData.dueDate);
+    
+    // Configure the request to POST data to /create-task
+    var request = new XMLHttpRequest();
+    request.open("POST", "/create-task", true);
     request.setRequestHeader('Content-Type', 'application/json');
     
-    request.onload = function() {
-        if (request.status >= 200 && request.status < 400) {
-            console.log('Task created successfully');
+    // Define what happens when the server responds
+    request.onload = function () {
+        response = JSON.parse(request.responseText); // Parse JSON response
+        console.log(response)
+        // If no error message is returned → success
+        if (response.message == undefined) {
+            alert('Added Task: ' + jsonData.title + '!');
+            // Clear form fields after success
+            document.getElementById("taskTitle").value = "";
+            document.getElementById("taskDescription").value = "";
+            document.getElementById("taskStatus").value = "To Do";
+            document.getElementById("taskPriority").value = "Medium";
+            document.getElementById("taskDueDate").value = "";
             // Close modal
             closeModal();
-            // Refresh task list
+            // Reload task list
             viewTasks();
         } else {
-            console.error('Error creating task:', request.statusText);
-            alert('Failed to create task. Please try again.');
+            // Show error if task could not be added
+            alert('Unable to add task!');
         }
     };
     
-    request.onerror = function() {
-        console.error('Network error occurred');
-        alert('Network error. Please check your connection.');
-    };
-    
-    // Send the request with form data
-    request.send(JSON.stringify(formData));
-});
+    // Send the request with JSON-formatted data
+    request.send(JSON.stringify(jsonData));
+}
 
 // Helper function to format date to "MMM DD, YYYY" format
 function formatDate(dateString) {
