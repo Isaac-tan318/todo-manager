@@ -7,6 +7,7 @@
     <title>Task Manager</title>
     <link rel="stylesheet" href="./css/styles.css" />
     <script src="./js/view-task.js"></script>
+    <script src="./js/isaac-tan.js" defer></script>
 </head>
 
 <body onload="viewTasks()">
@@ -77,6 +78,58 @@
         </div>
     </div>
 
+    <!-- Modal for update new task -->
+    <div id="updateTaskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Update Task</h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <p class="modal-subtitle">Fill in the details below to update task.</p>
+            
+            <form id="updateTaskForm">
+                <div class="form-group">
+                    <label for="taskTitle">Title <span class="required">*</span></label>
+                    <input type="text" id="taskTitle" name="title" placeholder="Loading task..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="taskDescription">Description</label>
+                    <textarea id="taskDescription" name="description" placeholder="Update description" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="taskStatus">Status</label>
+                        <select id="taskStatus" name="status">
+                            <option value="To Do">To Do</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskPriority">Priority</label>
+                        <select id="taskPriority" name="priority">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="taskDueDate">Due Date <span class="required">*</span></label>
+                    <input type="date" id="taskDueDate" name="dueDate" required>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <script src="./js/xavier-lee.js"></script>
 </body>
 
