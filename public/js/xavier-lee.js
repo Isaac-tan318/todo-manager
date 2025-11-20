@@ -34,23 +34,25 @@ function createTask() {
     const status = document.getElementById('taskStatus').value;
     const priority = document.getElementById('taskPriority').value;
     const dueDateRaw = document.getElementById('taskDueDate').value;
+    const imageFile = document.getElementById('taskImage').files[0];
 
     if (!title || !dueDateRaw) {
         alert('Title and Due Date are required!');
         return;
     }
 
-    const payload = {
-        title,
-        description,
-        status,
-        priority,
-        dueDate: formatDate(dueDateRaw)
-    };
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('status', status);
+    formData.append('priority', priority);
+    formData.append('dueDate', formatDate(dueDateRaw));
+    if (imageFile) {
+        formData.append('image', imageFile);
+    }
 
     const request = new XMLHttpRequest();
     request.open('POST', '/create-task', true);
-    request.setRequestHeader('Content-Type', 'application/json');
 
     request.onload = function () {
         let data = null;
@@ -69,7 +71,7 @@ function createTask() {
         alert('Network error. Please try again.');
     };
 
-    request.send(JSON.stringify(payload));
+    request.send(formData);
 }
 
 function formatDate(dateString) {

@@ -8,7 +8,8 @@ const TEMPLATE_FILE = path.join('utils', 'tasks.template.json');
 async function createTask(req, res) {
     try {
         const { title, description, status, priority, dueDate } = req.body;
-        const newTask = new Task(title, description, status, priority, dueDate);
+        const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+        const newTask = new Task(title, description, status, priority, dueDate, imageUrl);
         
         let tasks = [];
         try {
