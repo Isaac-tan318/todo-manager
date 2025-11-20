@@ -99,6 +99,15 @@ main {
     margin: 0;
 }
 
+.task-image {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    border-radius: 6px;
+    margin: 10px 0;
+    object-fit: cover;
+}
+
 .task-meta {
     display: flex;
     align-items: center;
