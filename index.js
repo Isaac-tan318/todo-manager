@@ -9,7 +9,7 @@ var startPage = "index.html";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Configure multer for file uploads
+// Configure multer for image uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/')
@@ -21,14 +21,15 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// API routes BEFORE static files
 const { viewTasks } = require('./utils/ViewTasksUtil')
 app.get('/view-tasks', viewTasks)
 
 const { createTask } = require('./utils/XavierLeeUtil')
 app.post('/create-task', upload.single('image'), createTask)
 
-// Static files AFTER API routes
+const { updateTask } = require('./utils/IsaacTanUtil')
+app.put('/update-task/:id', updateTask);
+
 app.use(express.static("./public"));
 app.use('/uploads', express.static("./uploads"));
 

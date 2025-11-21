@@ -46,7 +46,7 @@ function createTask() {
     formData.append('description', description);
     formData.append('status', status);
     formData.append('priority', priority);
-    formData.append('dueDate', formatDate(dueDateRaw));
+    formData.append('dueDate', dueDateRaw);
     if (imageFile) {
         formData.append('image', imageFile);
     }
@@ -74,7 +74,3 @@ function createTask() {
     request.send(formData);
 }
 
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-}

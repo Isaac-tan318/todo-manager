@@ -39,7 +39,7 @@ function viewTasks() {
         </div>
         <div class="task-date">
           <i class="calendar-icon">📅</i>
-          <span class="date-text">${task.dueDate}</span>
+          <span class="date-text">${formatDate(task.dueDate)}</span>
         </div>
       </div>
     </div>
@@ -63,4 +63,9 @@ function viewTasks() {
     };
 
     request.send();
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
