@@ -3,18 +3,18 @@ const updateModal = document.getElementById('updateTaskModal');
 const closeUpdateModalBtn = document.getElementById('closeUpdateModal');
 const cancelUpdateBtn = document.getElementById('cancelUpdateBtn');
 const updateTaskForm = document.getElementById('updateTaskForm');
-closeUpdateModalBtn.addEventListener('click', closeModal);
-cancelUpdateBtn.addEventListener('click', closeModal);
+closeUpdateModalBtn.addEventListener('click', closeUpdateModal);
+cancelUpdateBtn.addEventListener('click', closeUpdateModal);
 
 window.addEventListener('click', (e) => {
-    if (e.target === updateModal) closeModal();
+    if (e.target === updateModal) closeUpdateModal();
 });
 
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && updateModal.classList.contains('show')) closeModal();
+    if (e.key === 'Escape' && updateModal.classList.contains('show')) closeUpdateModal();
 });
 
-function closeModal() {
+function closeUpdateModal() {
     updateModal.classList.remove('show');
     updateTaskForm.reset();
 }
@@ -78,8 +78,7 @@ function sendUpdate(id) {
     request.onload = function () {
         if (request.status >= 200 && request.status < 300) {
             console.log(`Task ${id} updated successfully.`);
-            closeModal();
-            // Used to reload tasks after updating
+            closeUpdateModal();
             viewTasks();
         } else {
             alert(`Failed to update task ${id}. Server returned status: ${request.status}`);
