@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Manager</title>
@@ -9,128 +8,172 @@
     <script src="./js/view-task.js"></script>
     <script src="./js/isaac-tan.js" defer></script>
     <script src="./js/xavier-lee.js" defer></script>
-</head>
+    <script src="./js/aaron-sim.js" defer></script>
+  </head>
 
-<body onload="viewTasks()">
+  <body onload="viewTasks()">
     <header class="app-header">
-        <h1 class="app-title">Task Manager</h1>
-        <button id="createTaskBtn" class="btn btn-primary">+ Create New Task</button>
+      <h1 class="app-title">Task Manager</h1>
+      <button id="createTaskBtn" class="btn btn-primary">
+        + Create New Task
+      </button>
     </header>
 
     <main>
-        <section id="tasksList" class="tasks-list" aria-label="Task list"></section>
+      <section
+        id="tasksList"
+        class="tasks-list"
+        aria-label="Task list"
+      ></section>
     </main>
 
     <!-- Modal for Create New Task -->
     <div id="createTaskModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Create New Task</h2>
-                <button class="modal-close" id="closeModal">&times;</button>
-            </div>
-            <p class="modal-subtitle">Fill in the details below to create a new task.</p>
-            
-            <form id="createTaskForm">
-                <div class="form-group">
-                    <label for="taskTitle">Title <span class="required">*</span></label>
-                    <input type="text" id="taskTitle" name="title" placeholder="Enter task title" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="taskDescription">Description</label>
-                    <textarea id="taskDescription" name="description" placeholder="Enter task description" rows="3"></textarea>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="taskStatus">Status</label>
-                        <select id="taskStatus" name="status">
-                            <option value="To Do">To Do</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="taskPriority">Priority</label>
-                        <select id="taskPriority" name="priority">
-                            <option value="Low">Low</option>
-                            <option value="Medium" selected>Medium</option>
-                            <option value="High">High</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="taskDueDate">Due Date <span class="required">*</span></label>
-                    <input type="date" id="taskDueDate" name="dueDate" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="taskImage">Image</label>
-                    <input type="file" id="taskImage" name="image" accept="image/*">
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Create Task</button>
-                </div>
-            </form>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Create New Task</h2>
+          <button class="modal-close" id="closeModal">&times;</button>
         </div>
+        <p class="modal-subtitle">
+          Fill in the details below to create a new task.
+        </p>
+
+        <form id="createTaskForm">
+          <div class="form-group">
+            <label for="taskTitle">Title <span class="required">*</span></label>
+            <input
+              type="text"
+              id="taskTitle"
+              name="title"
+              placeholder="Enter task title"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="taskDescription">Description</label>
+            <textarea
+              id="taskDescription"
+              name="description"
+              placeholder="Enter task description"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="taskStatus">Status</label>
+              <select id="taskStatus" name="status">
+                <option value="To Do">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="taskPriority">Priority</label>
+              <select id="taskPriority" name="priority">
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="taskDueDate"
+              >Due Date <span class="required">*</span></label
+            >
+            <input type="date" id="taskDueDate" name="dueDate" required />
+          </div>
+
+          <div class="form-group">
+            <label for="taskImage">Image</label>
+            <input type="file" id="taskImage" name="image" accept="image/*" />
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="cancelBtn">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">Create Task</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- Modal for update new task -->
     <div id="updateTaskModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Update Task</h2>
-                <button class="modal-close" id="closeUpdateModal">&times;</button>
-            </div>
-            <p class="modal-subtitle">Fill in the details below to update task.</p>
-            
-            <form id="updateTaskForm">
-                <div class="form-group">
-                    <label for="updateTaskTitle">Title <span class="required">*</span></label>
-                    <input type="text" id="updateTaskTitle" name="title" placeholder="Loading task..." required>
-                </div>
-
-                <div class="form-group">
-                    <label for="updateTaskDescription">Description</label>
-                    <textarea id="updateTaskDescription" name="description" placeholder="Update description" rows="3"></textarea>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="updateTaskStatus">Status</label>
-                        <select id="updateTaskStatus" name="status">
-                            <option value="To Do">To Do</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="updateTaskPriority">Priority</label>
-                        <select id="updateTaskPriority" name="priority">
-                            <option value="Low">Low</option>
-                            <option value="Medium" selected>Medium</option>
-                            <option value="High">High</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="updateTaskDueDate">Due Date <span class="required">*</span></label>
-                    <input type="date" id="updateTaskDueDate" name="dueDate" required>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="cancelUpdateBtn">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Update Task</button>
-                </div>
-            </form>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Update Task</h2>
+          <button class="modal-close" id="closeUpdateModal">&times;</button>
         </div>
-    </div>
-</body>
+        <p class="modal-subtitle">Fill in the details below to update task.</p>
 
+        <form id="updateTaskForm">
+          <div class="form-group">
+            <label for="updateTaskTitle"
+              >Title <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="updateTaskTitle"
+              name="title"
+              placeholder="Loading task..."
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="updateTaskDescription">Description</label>
+            <textarea
+              id="updateTaskDescription"
+              name="description"
+              placeholder="Update description"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="updateTaskStatus">Status</label>
+              <select id="updateTaskStatus" name="status">
+                <option value="To Do">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="updateTaskPriority">Priority</label>
+              <select id="updateTaskPriority" name="priority">
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="updateTaskDueDate"
+              >Due Date <span class="required">*</span></label
+            >
+            <input type="date" id="updateTaskDueDate" name="dueDate" required />
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="cancelUpdateBtn"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">Update Task</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
