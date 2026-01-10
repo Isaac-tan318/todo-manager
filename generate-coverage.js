@@ -8,6 +8,9 @@ const { createCoverageMap } = require('istanbul-lib-coverage');
 const coverageDir = path.join(process.cwd(), 'coverage/temp'); // Playwright v8 coverage
 const istanbulCoverageDir = path.join(process.cwd(), 'coverage/frontend'); // Final report output
 
+// Target file for update-task tests coverage
+const TARGET_FILE = 'isaac-tan.js';
+
 async function convertCoverage() {
   // Exit if no coverage data exists
   try {
@@ -36,6 +39,11 @@ async function convertCoverage() {
           : entry.url;
       } catch {
         pathname = entry.url;
+      }
+
+      // Only process the target file (isaac-tan.js) for update-task coverage
+      if (!pathname.endsWith(TARGET_FILE)) {
+        continue;
       }
 
       if (!pathname.endsWith('.js') ||

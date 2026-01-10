@@ -74,6 +74,8 @@ const mockTasks = [
     // Error Flow 4 tests
     { id: 'server-error-test', ...defaultTask },
     { id: 'no-close-on-error', ...defaultTask },
+    { id: 'server-error-load-test', ...defaultTask },
+    { id: 'network-error-test', ...defaultTask },
     
     // Edge Cases tests
     { id: 'long-title-boundary', ...defaultTask },
@@ -662,6 +664,68 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
             // Modal should remain open after error
             await page.waitForTimeout(500);
             // Note: Current implementation closes modal even on error
+        });
+
+        test('should show alert when server fails to load task data for editing', async ({ page, browserName }) => {
+            await page.goto(BASE_URL);
+            await page.waitForSelector('.task-card');
+
+            // Intercept /view-tasks to return 500 error when edit button is clicked
+            await page.route('**/view-tasks', route => {
+                route.fulfill({
+                    status: 500,
+                    contentType: 'application/json',
+                    body: JSON.stringify({ error: 'Internal Server Error' })
+                });
+            });
+
+            // Set up dialog handler to capture alert
+            let dialogMessage = '';
+            page.on('dialog', async dialog => {
+                dialogMessage = dialog.message();
+                await dialog.accept();
+            });
+
+            // Click edit button - this will trigger /view-tasks which will now fail
+            const taskId = `test-task-${browserName}`;
+            await page.click(`button.btn-edit[data-id="${taskId}"]`);
+
+            // Wait for alert
+            await page.waitForTimeout(500);
+
+            // Verify alert message contains expected error info (lines 47-48 of isaac-tan.js)
+            expect(dialogMessage).toContain('Failed to load task');
+            expect(dialogMessage).toContain('500');
+        });
+
+        test('should show alert when network error occurs during update', async ({ page }) => {
+            await page.goto(BASE_URL);
+            await page.waitForSelector('.task-card');
+
+            await page.click('button.btn-edit[data-id="network-error-test"]');
+            await page.waitForSelector('#updateTaskModal.show');
+
+            // Intercept the update-task endpoint and abort to simulate network error
+            await page.route('**/update-task/**', route => {
+                route.abort('failed');
+            });
+
+            // Set up dialog handler to capture alert
+            let dialogMessage = '';
+            page.on('dialog', async dialog => {
+                dialogMessage = dialog.message();
+                await dialog.accept();
+            });
+
+            // Fill form and submit
+            await page.fill('#updateTaskTitle', 'Updated Title');
+            await page.click('#updateTaskForm button[type="submit"]');
+
+            // Wait for alert
+            await page.waitForTimeout(500);
+
+            // Verify alert message contains expected error info (lines 90-91 of isaac-tan.js)
+            expect(dialogMessage).toContain('Error connecting to server for task update');
         });
     });
 
