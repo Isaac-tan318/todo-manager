@@ -2,6 +2,10 @@
  * Comprehensive E2E Tests for UPDATE Function (isaac-tan.js)
  * Tests cover: Frontend UI interactions, modal behavior, form validation
  * Coverage target: >90%
+ * 
+ * NOTE: These tests modify a shared tasks.json file, so they must run serially
+ * to prevent race conditions. Configure fullyParallel: false in playwright.config.ts
+ * or run with --workers=1 flag.
  */
 
 import './playwright-coverage.js'
@@ -9,6 +13,9 @@ import { test, expect, Page } from '@playwright/test';
 import fs from 'fs/promises';
 import path from 'path';
 import config from "../playwright.config";
+
+// Force serial execution since all tests share the same tasks.json file
+test.describe.configure({ mode: 'serial' });
 
 
 const BASE_URL = 'http://localhost:5050';
@@ -57,7 +64,7 @@ const mockTasks = [
     { id: 'cancel-btn-test', ...defaultTask },
     { id: 'click-outside-test', ...defaultTask },
     { id: 'escape-key-test', ...defaultTask },
-    { id: 'no-change-on-cancel', title: 'Original Title', description: 'Test Description', status: 'To Do', priority: 'Medium', dueDate: '2026-01-15', imageUrl: null },
+    { id: 'no-change-on-cancel', title: 'Cancel Test Title', description: 'Test Description', status: 'To Do', priority: 'Medium', dueDate: '2026-01-15', imageUrl: null },
     { id: 'reset-form-test', title: 'Original', description: 'Test Description', status: 'To Do', priority: 'Medium', dueDate: '2026-01-15', imageUrl: null },
     
     // Error Flow 3 tests
@@ -137,6 +144,19 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
     // Reset tasks file before each test to ensure clean state
     test.beforeEach(async () => {
         await resetTasksFile();
+    });
+
+    // Clean up mock tasks after all tests
+    test.afterAll(async () => {
+        try {
+            const templateData = await fs.readFile(TASKS_TEMPLATE, 'utf-8');
+            await fs.writeFile(TASKS_FILE, templateData, 'utf-8');
+            console.log("tasks.json restored to template");
+        } catch {
+            // If template doesn't exist, reset to empty array
+            await fs.writeFile(TASKS_FILE, '[]', 'utf-8');
+            console.log("tasks.json reset to empty array");
+        }
     });
 
     // ============================================
@@ -511,10 +531,10 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
 
             // Verify database unchanged
             const tasks = await readTasks();
-            expect(tasks.find((t: any) => t.id === 'no-change-on-cancel').title).toBe('Original Title');
+            expect(tasks.find((t: any) => t.id === 'no-change-on-cancel').title).toBe('Cancel Test Title');
 
             // Verify UI unchanged
-            await expect(page.locator('.task-title:has-text("Original Title")')).toBeVisible();
+            await expect(page.locator('.task-title:has-text("Cancel Test Title")')).toBeVisible();
         });
 
         test('should reset form when modal is cancelled', async ({ page }) => {
@@ -848,6 +868,9 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
             await page.fill('#updateTaskTitle', 'Updated Middle');
             await page.click('#updateTaskForm button[type="submit"]');
 
+            // Wait for modal to close indicating update is complete
+            await expect(page.locator('#updateTaskModal')).not.toHaveClass(/show/);
+
             const tasks = await readTasks();
             expect(tasks.find((t: any) => t.id === 'middle').title).toBe('Updated Middle');
         });
@@ -861,6 +884,9 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
 
             await page.fill('#updateTaskTitle', 'Updated Last');
             await page.click('#updateTaskForm button[type="submit"]');
+
+            // Wait for modal to close indicating update is complete
+            await expect(page.locator('#updateTaskModal')).not.toHaveClass(/show/);
 
             const tasks = await readTasks();
             expect(tasks.find((t: any) => t.id === 'tasklast').title).toBe('Updated Last');
@@ -880,6 +906,9 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
 
             await page.fill('#updateTaskTitle', 'Updated Only Task');
             await page.click('#updateTaskForm button[type="submit"]');
+
+            // Wait for modal to close indicating update is complete
+            await expect(page.locator('#updateTaskModal')).not.toHaveClass(/show/);
 
             const tasks = await readTasks();
             expect(tasks.length).toBe(1);
@@ -957,6 +986,9 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
 
             await page.fill('#updateTaskTitle', 'New Title');
             await page.click('#updateTaskForm button[type="submit"]');
+
+            // Wait for modal to close indicating update is complete
+            await expect(page.locator('#updateTaskModal')).not.toHaveClass(/show/);
 
             const tasks = await readTasks();
             const updatedTask = tasks.find((t: any) => t.title === 'New Title');
