@@ -19,10 +19,15 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
+  /* Use single worker to prevent race conditions on shared tasks.json */
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  /* Multiple reporters for comprehensive test reporting */
+  reporter: [
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['json', { outputFile: 'test-results/results.json' }],
+    ['list'],
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -30,6 +35,24 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    
+    /* Screenshot on failure for debugging */
+    screenshot: 'only-on-failure',
+    
+    /* Video recording on failure */
+    video: 'retain-on-failure',
+  },
+  
+  /* Configure snapshot settings for visual regression testing */
+  expect: {
+    /* Threshold for screenshot comparison */
+    toHaveScreenshot: {
+      maxDiffPixels: 100,
+      threshold: 0.2,
+    },
+    toMatchSnapshot: {
+      maxDiffPixelRatio: 0.05,
+    },
   },
 
   /* Configure projects for major browsers */
