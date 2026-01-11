@@ -2,10 +2,7 @@
  * Comprehensive E2E Tests for UPDATE Function (isaac-tan.js)
  * Tests cover: Frontend UI interactions, modal behavior, form validation
  * Coverage target: >90%
- * 
- * NOTE: These tests modify a shared tasks.json file, so they must run serially
- * to prevent race conditions. Configure fullyParallel: false in playwright.config.ts
- * or run with --workers=1 flag.
+ 
  */
 
 import './playwright-coverage.js'

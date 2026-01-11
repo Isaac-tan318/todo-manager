@@ -12,8 +12,7 @@
     "test:schema": "npx playwright test e2e/advanced-testing.spec.ts --grep \"API Schema\"",
     "test:performance": "npx playwright test e2e/advanced-testing.spec.ts --grep \"Performance\"",
     "test:advanced": "npx playwright test e2e/advanced-testing.spec.ts",
-    "test:update-snapshots": "npx playwright test e2e/advanced-testing.spec.ts --update-snapshots",
-    "test:report": "npx playwright show-report"
+    "test:update-snapshots": "npx playwright test e2e/advanced-testing.spec.ts --update-snapshots"
   },
   "author": "",
   "license": "ISC",

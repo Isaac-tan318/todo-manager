@@ -1,8 +1,4 @@
-/**
- * Comprehensive Tests for UPDATE Function (isaac-tan.js / IsaacTanUtil.js)
- * Tests cover: Backend unit tests, API integration tests
- * Coverage target: >90%
- */
+// Tests for backend and API
 
 const { app, server } = require('../index');
 const request = require('supertest');
@@ -67,9 +63,8 @@ describe('UPDATE Task Function Tests', () => {
         server.close();
     });
 
-    // ============================================
-    // BACKEND UNIT TESTS - IsaacTanUtil.js
-    // ============================================
+    // BACKEND UNIT TESTS 
+
     describe('Backend Unit Tests - updateTask()', () => {
         
         describe('Input Validation', () => {
@@ -679,9 +674,8 @@ describe('UPDATE Task Function Tests', () => {
         });
     });
 
-    // ============================================
-    // API INTEGRATION TESTS
-    // ============================================
+    // API TESTS
+    
     describe('API Integration Tests - PUT /update-task/:id', () => {
         
         describe('HTTP Method Validation', () => {
