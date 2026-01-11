@@ -1,0 +1,133 @@
+{
+  "timestamp": "2026-01-11T08:33:51.028Z",
+  "summary": {
+    "totalPassed": 11,
+    "totalFailed": 13,
+    "totalTests": 24
+  },
+  "browsers": [
+    {
+      "browser": "ie",
+      "passed": 0,
+      "failed": 12,
+      "results": [
+        {
+          "name": "Edit modal opens on button click",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10175ms"
+        },
+        {
+          "name": "Fields are pre-filled with task data",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10335ms"
+        },
+        {
+          "name": "Update title successfully",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10098ms"
+        },
+        {
+          "name": "Update status successfully",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10262ms"
+        },
+        {
+          "name": "Modal closes after successful update",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10201ms"
+        },
+        {
+          "name": "Alert shown on empty title",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10137ms"
+        },
+        {
+          "name": "Modal closes on cancel",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10127ms"
+        },
+        {
+          "name": "No changes applied on cancel",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10006ms"
+        },
+        {
+          "name": "Modal closes on Escape key",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10207ms"
+        },
+        {
+          "name": "Alert shown when task not found",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10314ms"
+        },
+        {
+          "name": "Edit button is visible",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10134ms"
+        },
+        {
+          "name": "Modal has correct title",
+          "status": "failed",
+          "error": "Waiting for element to be located By(css selector, .task-card)\nWait timed out after 10503ms"
+        }
+      ]
+    },
+    {
+      "browser": "edge-legacy",
+      "passed": 11,
+      "failed": 1,
+      "results": [
+        {
+          "name": "Edit modal opens on button click",
+          "status": "passed"
+        },
+        {
+          "name": "Fields are pre-filled with task data",
+          "status": "passed"
+        },
+        {
+          "name": "Update title successfully",
+          "status": "passed"
+        },
+        {
+          "name": "Update status successfully",
+          "status": "passed"
+        },
+        {
+          "name": "Modal closes after successful update",
+          "status": "passed"
+        },
+        {
+          "name": "Alert shown on empty title",
+          "status": "failed",
+          "error": "Alert should be displayed for empty title"
+        },
+        {
+          "name": "Modal closes on cancel",
+          "status": "passed"
+        },
+        {
+          "name": "No changes applied on cancel",
+          "status": "passed"
+        },
+        {
+          "name": "Modal closes on Escape key",
+          "status": "passed"
+        },
+        {
+          "name": "Alert shown when task not found",
+          "status": "passed"
+        },
+        {
+          "name": "Edit button is visible",
+          "status": "passed"
+        },
+        {
+          "name": "Modal has correct title",
+          "status": "passed"
+        }
+      ]
+    }
+  ]
+}

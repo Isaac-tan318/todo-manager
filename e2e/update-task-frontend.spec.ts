@@ -1,17 +1,10 @@
-/**
- * Comprehensive E2E Tests for UPDATE Function (isaac-tan.js)
- * Tests cover: Frontend UI interactions, modal behavior, form validation
- * Coverage target: >90%
- 
- */
-
 import './playwright-coverage.js'
 import { test, expect, Page } from '@playwright/test';
 import fs from 'fs/promises';
 import path from 'path';
-import config from "../playwright.config";
+import config from "../playwright.config.js";
 
-// Force serial execution since all tests share the same tasks.json file
+// use serial execution since all tests share the same tasks.json file
 test.describe.configure({ mode: 'serial' });
 
 
