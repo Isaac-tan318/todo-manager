@@ -151,9 +151,8 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
         }
     });
 
-    // ============================================
     // STARTING FLOW - Opening Edit Modal
-    // ============================================
+    
     test.describe('Starting Flow - Edit Modal Opens', () => {
 
         test('should open edit modal when clicking edit icon', async ({ page, browserName }) => {
@@ -209,9 +208,8 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
         });
     });
 
-    // ============================================
     // PRIMARY FLOW - Success Case
-    // ============================================
+
     test.describe('Primary Flow - Successful Update', () => {
 
         test('should update task title successfully', async ({ page }) => {
@@ -364,9 +362,8 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
         });
     });
 
-    // ============================================
     // ERROR FLOW 1 - Invalid Input
-    // ============================================
+    
     test.describe('Error Flow 1 - Invalid Input', () => {
 
         test('should show alert when title is empty', async ({ page }) => {
@@ -453,9 +450,8 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
         });
     });
 
-    // ============================================
     // ERROR FLOW 2 - Cancelled
-    // ============================================
+
     test.describe('Error Flow 2 - Modal Cancelled', () => {
 
         test('should close modal when clicking close button', async ({ page }) => {
@@ -551,9 +547,8 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
         });
     });
 
-    // ============================================
     // ERROR FLOW 3 - Task Not Found
-    // ============================================
+
     test.describe('Error Flow 3 - Task Not Found', () => {
 
         test('should show alert when task is not found during edit open', async ({ page }) => {
@@ -605,9 +600,8 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
         });
     });
 
-    // ============================================
     // ERROR FLOW 4 - Server Error
-    // ============================================
+
     test.describe('Error Flow 4 - Server Error', () => {
 
         test('should show alert on server error during update', async ({ page }) => {
@@ -719,9 +713,8 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
         });
     });
 
-    // ============================================
     // EDGE CASES - Boundary Conditions
-    // ============================================
+
     test.describe('Edge Cases - Boundary Conditions', () => {
 
         test('should handle very long title (boundary)', async ({ page }) => {
@@ -843,9 +836,8 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
         });
     });
 
-    // ============================================
     // LOGICAL BRANCH COVERAGE
-    // ============================================
+    
     test.describe('Logical Branch Coverage', () => {
 
         test('should handle all status dropdown options', async ({ page }) => {
@@ -970,9 +962,8 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
         });
     });
 
-    // ============================================
     // DATA INTEGRITY TESTS
-    // ============================================
+    
     test.describe('Data Integrity', () => {
 
         test('should preserve other tasks when updating one', async ({ page }) => {
@@ -1050,9 +1041,8 @@ test.describe('UPDATE Task E2E Tests - Frontend', () => {
         });
     });
 
-    // ============================================
     // UI/UX TESTS
-    // ============================================
+    
     test.describe('UI/UX Tests', () => {
 
         test('should display modal with correct title', async ({ page }) => {
